@@ -19,6 +19,7 @@ func InitDB(path string) *Storage {
 	CREATE TABLE IF NOT EXISTS users(
 		id INTEGER PRIMARY KEY,
 		username TEXT NOT NULL UNIQUE,
+		age string INTEGER NOT NULL,
 		wins INTEGER DEFAULT 0,
 		loses INTEGER DEFAULT 0,
 		winrate INTEGER DEFAULT 0,
@@ -37,5 +38,28 @@ func InitDB(path string) *Storage {
 	}
 
 	return &Storage{db: db}
+
+}
+
+func (s *Storage) NewUser(username string, age int) (int, error) {
+	stmt, err := s.db.Prepare("INSERT INTO users(username, age) VALUES(?, ?)")
+	if err != nil {
+		slog.Error("DATABASE ERROR", attrs.Err(err))
+		return 0, err
+	}
+	result, err := stmt.Exec(username, age)
+
+	if err != nil {
+		slog.Error("DATABASE ERROR", attrs.Err(err))
+		return 0, err
+	}
+
+	id, err := result.LastInsertId()
+
+	if err != nil {
+		slog.Error("DATABASE ERROR", attrs.Err(err))
+		return 0, err
+	}
+	return int(id), nil
 
 }

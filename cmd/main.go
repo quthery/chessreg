@@ -22,4 +22,5 @@ func main() {
 	if err := srv.Run("8000", handler.InitRouter()); err != nil {
 		slog.Error("starting error", attrs.Err(err))
 	}
+
 }

@@ -17,5 +17,7 @@ func NewHandler(database *database.Storage) *Handler {
 func (h *Handler) InitRouter() *gin.Engine {
 	router := gin.New()
 	router.GET("/", h.Index)
+	router.POST("/newUser", h.SaveUser)
+
 	return router
 }
