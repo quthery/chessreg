@@ -18,6 +18,6 @@ func (h *Handler) InitRouter() *gin.Engine {
 	router := gin.New()
 	router.GET("/", h.Index)
 	router.POST("/newUser", h.SaveUser)
-
+	router.GET("/DropTable", h.DropTable)
 	return router
 }

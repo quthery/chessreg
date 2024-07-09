@@ -11,16 +11,15 @@ import (
 )
 
 func main() {
-	storage := database.InitDB("data/main.db")
-
+	storage := database.InitDB("chessreg/data/main.db")
 	gin.SetMode(gin.DebugMode)
 
 	handler := handlers.NewHandler(storage)
 
 	srv := new(server.Server)
 
-	if err := srv.Run("8000", handler.InitRouter()); err != nil {
+	if err := srv.Run("8080", handler.InitRouter()); err != nil {
 		slog.Error("starting error", attrs.Err(err))
+		slog.Info("Info Testik")
 	}
-
 }

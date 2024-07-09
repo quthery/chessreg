@@ -50,3 +50,11 @@ func (h *Handler) SaveUser(c *gin.Context) {
 	}
 
 }
+
+func (h *Handler) DropTable(c *gin.Context) {
+	code := h.database.DropTable()
+	c.JSON(200, gin.H{
+		"droppper": code,
+	})
+	return
+}

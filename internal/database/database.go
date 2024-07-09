@@ -63,3 +63,15 @@ func (s *Storage) NewUser(username string, age int) (int, error) {
 	return int(id), nil
 
 }
+
+func (s *Storage) DropTable() int {
+	query := "DROP TABLE users;"
+	_, err := s.db.Exec(query)
+	if err != nil {
+		slog.Error("database error:", attrs.Err(err))
+		return 500
+	}
+
+	return 200
+
+}
